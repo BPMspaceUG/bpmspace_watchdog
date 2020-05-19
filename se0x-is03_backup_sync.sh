@@ -1,22 +1,9 @@
 #!/bin/bash
-###########
-# Methods #
-###########
 
-initialize_output_html () {
-        html="<html><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg320mUcww7on3RYdg4Va+PmSTsz/K68vbdEqh4u\" crossorigin=\"anonymous\"><body><div style=\"margin-top:30px;\" class=\"row\">"
-        html+="<div class=\"col-sm-12\">&nbsp</div>"
-        html+="<div class=\"col-sm-2\"></div>"
-        html+="<div class=\"col-sm-8\"<ul>"
-        echo $html
-}
-
-finish_output_html () {
-        html=$1
-        html+="</ul><div class=\"col-sm-2\"></div>"
-        html+="</div></body></html>"
-        echo $html
-}
+html="<html><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg320mUcww7on3RYdg4Va+PmSTsz/K68vbdEqh4u\" crossorigin=\"anonymous\"><body><div style=\"margin-top:30px;\" class=\"row\">"
+html+="<div class=\"col-sm-12\">&nbsp</div>"
+html+="<div class=\"col-sm-2\"></div>"
+html+="<div class=\"col-sm-8\"<ul>"
 
 # Config
 logpath="/var/services/homes/websync/scripts/logs"
@@ -46,7 +33,9 @@ html+="</ul><li>end DB se06</li>"
 # to better identify backup files and only have to download the "LATEST" folder every time
 last_backup_time=$(ssh -t root@se6.mitsm.de -p 7070 "stat -c %y /home/backup/SQL/LATEST")
 read Y M D h m _ _ _ <<< ${last_backup_time//[-:\. ]/ }
-mv "$backup_dir/LATEST" "$backup_dir/$Y$M${D}_$h$m"
+newest_backup_dir="$backup_dir/$Y$M${D}_$h$m"
+mkdir $newest_backup_dir
+mv $backup_dir/LATEST/ $newest_backup_dir/
 
 # 3. Delete backups older than 14 days
 # i.e. all but the last 14 backup files, excluding the "old" directory
@@ -57,5 +46,6 @@ ls -tp | grep -E -v "(old)" | tail -n +15 | xargs -I {} rmdir -- {} # detailed e
 ##########
 # Finish #
 ##########
-html="$(finish_output_html html)" # finish off HTML output
+html+="</ul><div class=\"col-sm-2\"></div>"
+html+="</div></body></html>"
 echo $html > $html_output_destination/$logfilename.$logfiledate.htm # upload HTML output
