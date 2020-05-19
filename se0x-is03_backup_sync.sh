@@ -6,13 +6,13 @@ logfiledate=$(date '+%s')
 logfilename="se0x-is03_backup_sync"
 html_output_destination="/dev/null"
 
-# Delete old logs
-find $logpath -name "$logfilename*.log" -mmin +60 -delete
+# Prep
+find $logpath -name "$logfilename*.log" -mmin +60 -delete # delete old log files
+html="$(initialize_output_html)" # initialize output HTML
 
-# Initialize output HTML
-html="$(initialize_output_html)"
-
-# Get se06 DB backup
+######################
+# Get se06 DB backup #
+######################
 html+="<li>start DB se06</li><ul>"
 logfile="$logpath/$logfilename.dbse06.$logfiledate.log"
 backup_dir="/volume1/Backup/SE06"
@@ -33,11 +33,16 @@ mv "$backup_dir/LATEST" "$backup_dir/$Y$M${D}_$h$m"
 # 3. Delete backups older than 14 days
 
 
+##########
+# Finish #
+##########
+html="$(finish_output_html html)" # finish off HTML output
+echo $html | $html_output_destination/$logfilename.$logfiledate.htm # upload HTML output
 
-# Finish off HTML output
-html="$(finish_output_html html)"
 
-echo $html | $html_output_destination/$logfilename.$logfiledate.htm
+###########
+# Methods #
+###########
 
 initialize_output_html () {
         html="<html><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg320mUcww7on3RYdg4Va+PmSTsz/K68vbdEqh4u\" crossorigin=\"anonymous\"><body><div style=\"margin-top:30px;\" class=\"row\">"
