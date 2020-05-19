@@ -20,7 +20,7 @@ html="$(initialize_output_html)" # initialize output HTML
 ######################
 html+="<li>start DB se06</li><ul>"
 logfile="$logpath/$logfilename.dbse06.$logfiledate.log"
-backup_dir="/volume1/Backup/SE06"
+backup_dir="/volume1/Backup/SE06/SQL"
 
 # 1. rsync
 rsync -ua --stats --log-file=$logfile -e "ssh -p 7070" root@se6.mitsm.de:/home/backup/SQL/LATEST $backup_dir/
