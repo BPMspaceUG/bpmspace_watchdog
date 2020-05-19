@@ -31,6 +31,9 @@ read Y M D h m _ _ _ <<< ${last_backup_time//[-:\. ]/ }
 mv "$backup_dir/LATEST" "$backup_dir/$Y$M${D}_$h$m"
 
 # 3. Delete backups older than 14 days
+# i.e. all but the last 14 backup files, excluding the "old" directory
+cd $backup_dir
+ls -tp | grep -E -v "(old)" | tail -n +15 | xargs -I {} rmdir -- {} # detailed explanation at https://stackoverflow.com/questions/25785/delete-all-but-the-most-recent-x-files-in-bash
 
 
 ##########
