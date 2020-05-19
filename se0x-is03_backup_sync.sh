@@ -1,6 +1,4 @@
 #!/bin/bash
-
-
 ###########
 # Methods #
 ###########
@@ -46,7 +44,7 @@ html+="</ul><li>end DB se06</li>"
 
 # 2. Rename
 # to better identify backup files and only have to download the "LATEST" folder every time
-last_backup_time = $(ssh -t root@se6.mitsm.de -p 7070 "stat -c %y /home/backup/SQL/LATEST")
+last_backup_time=$(ssh -t root@se6.mitsm.de -p 7070 "stat -c %y /home/backup/SQL/LATEST")
 read Y M D h m _ _ _ <<< ${last_backup_time//[-:\. ]/ }
 mv "$backup_dir/LATEST" "$backup_dir/$Y$M${D}_$h$m"
 
@@ -60,4 +58,4 @@ ls -tp | grep -E -v "(old)" | tail -n +15 | xargs -I {} rmdir -- {} # detailed e
 # Finish #
 ##########
 html="$(finish_output_html html)" # finish off HTML output
-echo $html | $html_output_destination/$logfilename.$logfiledate.htm # upload HTML output
+echo $html > $html_output_destination/$logfilename.$logfiledate.htm # upload HTML output
