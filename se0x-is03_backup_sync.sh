@@ -1,5 +1,25 @@
 #!/bin/bash
 
+
+###########
+# Methods #
+###########
+
+initialize_output_html () {
+        html="<html><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg320mUcww7on3RYdg4Va+PmSTsz/K68vbdEqh4u\" crossorigin=\"anonymous\"><body><div style=\"margin-top:30px;\" class=\"row\">"
+        html+="<div class=\"col-sm-12\">&nbsp</div>"
+        html+="<div class=\"col-sm-2\"></div>"
+        html+="<div class=\"col-sm-8\"<ul>"
+        echo $html
+}
+
+finish_output_html () {
+        html=$1
+        html+="</ul><div class=\"col-sm-2\"></div>"
+        html+="</div></body></html>"
+        echo $html
+}
+
 # Config
 logpath="/var/services/homes/websync/scripts/logs"
 logfiledate=$(date '+%s')
@@ -41,23 +61,3 @@ ls -tp | grep -E -v "(old)" | tail -n +15 | xargs -I {} rmdir -- {} # detailed e
 ##########
 html="$(finish_output_html html)" # finish off HTML output
 echo $html | $html_output_destination/$logfilename.$logfiledate.htm # upload HTML output
-
-
-###########
-# Methods #
-###########
-
-initialize_output_html () {
-        html="<html><link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css\" integrity=\"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg320mUcww7on3RYdg4Va+PmSTsz/K68vbdEqh4u\" crossorigin=\"anonymous\"><body><div style=\"margin-top:30px;\" class=\"row\">"
-        html+="<div class=\"col-sm-12\">&nbsp</div>"
-        html+="<div class=\"col-sm-2\"></div>"
-        html+="<div class=\"col-sm-8\"<ul>"
-        echo $html
-}
-
-finish_output_html () {
-        html=$1
-        html+="</ul><div class=\"col-sm-2\"></div>"
-        html+="</div></body></html>"
-        echo $html
-}
