@@ -1,0 +1,9 @@
+# Simple snippet to be added to the server{} block of /etc/nginx/sites-available/default (or its own file) to pass requests for Python/Shell files to FastCGI (has to be installed)
+location ~ (\.py|\.sh)$ {
+	gzip off;
+	autoindex on;
+	fastcgi_pass unix:/var/run/fcgiwrap.socket;
+	include /etc/nginx/fastcgi_params;
+	fastcgi_param DOCUMENT_ROOT /var/www/;
+	fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+}
