@@ -1,0 +1,7 @@
+#!/bin/bash
+
+grep_part(){
+        echo "select participant_id  from participant order by participant_id desc limit 0,10" |mysql grep_test
+}
+mapfile -t participants_array < <(grep_part)
+echo ${participants_array[0]}
