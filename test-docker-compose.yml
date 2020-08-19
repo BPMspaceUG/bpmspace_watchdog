@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: db
+    volumes:
+      - ./data/bwng_dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bwng
+    ports:
+      - "3307:3306"
+
+  python:
+    image: python:3.8-alpine
+    container_name: python
+    volumes:
+      - ./scripts/compare_uids.py:/tmp/compare_uids.py
+      - ./data:/data
+    tty: true
