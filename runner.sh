@@ -1,4 +1,4 @@
-docker_resource_directory="/volume1/backup_check"
+docker_resource_directory="/volume1/docker/watchdog"
 cd $docker_resource_directory
 
 # copy latest SQL dump from backup
