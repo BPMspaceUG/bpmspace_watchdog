@@ -5,12 +5,12 @@ services:
     image: mysql:8.0
     container_name: db
     volumes:
-      - ./volume1/Backup/SE06/SQL/mitsm_business_warehouse.sql:/docker-entrypoint-initdb.d/dump.sql
+      - /volume1/Backup/SE06/SQL/LATEST/mitsm_business_warehouse.sql:/docker-entrypoint-initdb.d/dump.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bwng
     ports:
-      - "3307:3306"
+      - "33307:3306"
 
   python:
     image: python:3.8-alpine
