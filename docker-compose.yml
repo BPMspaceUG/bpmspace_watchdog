@@ -16,6 +16,6 @@ services:
     image: python:3.8-alpine
     container_name: python
     volumes:
-      - /volume1/backup_check/scripts/compare_uids.py:/tmp/compare_uids.py
-      - /volume1/backup_check/data:/data
+      - /volume1/docker/watchdog/scripts/compare_uids.py:/tmp/compare_uids.py
+      - /volume1/docker/watchdog/data:/data
     tty: true
