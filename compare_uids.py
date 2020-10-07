@@ -28,7 +28,7 @@ else:
     message = f"Intersection size of {intersection_size} is lower than specified minimum (6)"
 
 # Check if last backup received is older than 3 days
-if dt.datetime.now() - dt.datetime.strptime(live_transmission_timestamp, "%Y-%m-%dT%H:%M:%SZ") > dt.timedelta(259200):
+if dt.datetime.now() - dt.datetime.strptime(live_transmission_timestamp, "%Y-%m-%dT%H:%M:%S%Z") > dt.timedelta(259200):
     keyword = "ERROR"
     message = "Last SQL dump received older than 3 days"
 
