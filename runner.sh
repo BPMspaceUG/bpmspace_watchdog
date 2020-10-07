@@ -26,4 +26,4 @@ docker exec python python /tmp/compare_uids.py
 echo "Successfully checked UIDs!"
 
 # Clean up
-docker-compose -f test-docker-compose.yml down -v
+docker-compose -f docker-compose.yml down -v
