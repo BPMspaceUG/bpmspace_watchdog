@@ -1,5 +1,3 @@
-#!/usr/bin/env python3.8
-
 # Read result file
 with open("/data/result", "r") as f:
     keyword, message, timestamp = f.readlines()
