@@ -1,11 +1,11 @@
-docker_resource_directory="."
+docker_resource_directory="/volume1/backup_check"
 cd $docker_resource_directory
 
 # copy latest SQL dump from backup
 docker-compose -f test-docker-compose.yml up -d
 
 # Fetch live UID file output from se6
-docker exec python wget --no-check-certificate https://mitsm.net:5050/oHGbuAiN014UmTHxHnViQGnfTkcBeW08lXYJp5go6Rcw9h2v6xh2vrGzI8HGbGAiN01DmToHGbuArZzbRRtBuAiNJ7ycqduoGOw/participant_ids.json /data/live_uids.json
+docker exec python wget --no-check-certificate https://mitsm.net:5050/oHGbuAiN014UmTHxHnViQGnfTkcBeW08lXYJp5go6Rcw9h2v6xh2vrGzI8HGbGAiN01DmToHGbuArZzbRRtBuAiNJ7ycqduoGOw/participant_ids.json ./data/live_uids.json
 
 # Read out latest 10 UIDs from backup DB
 # leaving out column title line
