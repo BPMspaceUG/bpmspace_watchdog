@@ -3,7 +3,7 @@ import datetime as dt
 
 live_uid_json = "/data/live_uids.json"
 backup_uid_list = "/data/backup_uids.list"
-result_file = "/data/result"
+result_file = "/result/resultfile"
 
 # Read UIDs & timestamp from JSON file
 data = json.load(open(live_uid_json, "r"))
