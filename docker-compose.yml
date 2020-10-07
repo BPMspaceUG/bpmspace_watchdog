@@ -5,7 +5,7 @@ services:
     image: mysql:8.0
     container_name: db
     volumes:
-      - ./data/bwng_dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./volume1/Backup/SE06/SQL/mitsm_business_warehouse.sql:/docker-entrypoint-initdb.d/dump.sql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: bwng
@@ -16,6 +16,6 @@ services:
     image: python:3.8-alpine
     container_name: python
     volumes:
-      - ./scripts/compare_uids.py:/tmp/compare_uids.py
-      - ./data:/data
+      - /volume1/backup_check/scripts/compare_uids.py:/tmp/compare_uids.py
+      - /volume1/backup_check/data:/data
     tty: true
