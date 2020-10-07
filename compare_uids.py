@@ -36,7 +36,6 @@ if dt.datetime.now() -  transmission_timestamp > dt.timedelta(259200):
 # Write results to file
 timestamp = str(dt.datetime.now())
 with open(result_file, "w") as f:
-    f.write("Content-Type: text/html\r\n")
     f.write("<html>")
     f.write("<head>")
     f.write("</head>")
