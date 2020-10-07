@@ -20,29 +20,13 @@ html="$(initialize_output_html)" # initialize output HTML
 ######################
 html+="<li>start DB se06</li><ul>"
 logfile="$logpath/$logfilename.dbse06.$logfiledate.log"
-backup_dir="/volume1/Backup/SE06/SQL"
+backup_dir="/volume1/Backup/SE06/SQL/LATEST"
 
-# 1. rsync
 rsync -ua --stats --log-file=$logfile -e "ssh -p 7070" root@se6.mitsm.de:/home/backup/SQL/LATEST $backup_dir/
 while read line; do
         html+="<li>$line</li>"
 done < $logfile
 html+="</ul><li>end DB se06</li>"
-
-# 2. Rename
-# to better identify backup files and only have to download the "LATEST" folder every time
-last_backup_time=$(ssh -t root@se6.mitsm.de -p 7070 "stat -c %y /home/backup/SQL/LATEST")
-read Y M D h m _ _ _ <<< ${last_backup_time//[-:\. ]/ }
-newest_backup_dir="$backup_dir/$Y$M${D}_$h$m"
-mkdir $newest_backup_dir
-mv $backup_dir/LATEST/* $newest_backup_dir/
-rmdir $backup_dir/LATEST
-
-# 3. Delete backups older than 14 days
-# i.e. all but the last 14 backup files, excluding the "old" directory
-cd $backup_dir
-ls -tp | grep -E -v "(old)" | tail -n +15 | xargs -I {} rmdir -- {} # detailed explanation at https://stackoverflow.com/questions/25785/delete-all-but-the-most-recent-x-files-in-bash
-
 
 ##########
 # Finish #
