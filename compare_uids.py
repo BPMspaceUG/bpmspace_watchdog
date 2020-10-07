@@ -33,6 +33,16 @@ if dt.datetime.now() -  transmission_timestamp > dt.timedelta(259200):
     keyword = "ERROR"
     message = "Last SQL dump received older than 3 days"
 
+# Write results to file
 timestamp = str(dt.datetime.now())
 with open(result_file, "w") as f:
-    f.write(keyword+ "\n" + message + "\n" + timestamp)
+    f.write("Content-Type: text/html\r\n")
+    f.write("<html>")
+    f.write("<head>")
+    f.write("</head>")
+    f.write("<body>")
+    f.write(f"<h1>{keyword}</h1>")
+    f.write(f"<h3>Message: {message}</h3>")
+    f.write(f"<h3>Timestamp: {timestamp}</h3>")
+    f.write("</body>")
+    f.write("</html>")
