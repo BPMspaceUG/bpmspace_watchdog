@@ -7,7 +7,7 @@ result_file = "/data/result"
 
 # Read UIDs & timestamp from JSON file
 data = json.load(open(live_uid_json, "r"))
-live_uids = data["uids"]
+live_uids = data["participant_ids"]
 live_transmission_timestamp = data["timestamp"]
 
 # Read backup DB UIDs from list
