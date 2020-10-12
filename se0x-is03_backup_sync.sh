@@ -22,7 +22,7 @@ html+="<li>start DB se06</li><ul>"
 logfile="$logpath/$logfilename.dbse06.$logfiledate.log"
 backup_dir="/volume1/Backup/SE06/SQL/LATEST"
 
-rsync -ua --stats --log-file=$logfile -e "ssh -p 7070" root@se6.mitsm.de:/home/backup/SQL/LATEST $backup_dir/
+rsync -ua --stats --log-file=$logfile -e "ssh -p 7070" root@se6.mitsm.de:/home/backup/SQL/LATEST/* $backup_dir/
 while read line; do
         html+="<li>$line</li>"
 done < $logfile
