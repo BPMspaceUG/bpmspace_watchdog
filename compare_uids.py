@@ -20,7 +20,7 @@ def computeIntersectionSize():
 # Execute logic based on intersection size of live and backup UIDs
 intersection_size = computeIntersectionSize()
 if intersection_size > 6:
-    keyword = "OK"
+    keyword = "OK1764"
     message = "Everything alright, UID intersection above specified threshold (6)"
 
 else:
@@ -43,5 +43,6 @@ with open(result_file, "w") as f:
     f.write(f"<h1>{keyword}</h1>")
     f.write(f"<h3>Message: {message}</h3>")
     f.write(f"<h3>Timestamp: {timestamp}</h3>")
+    f.write(f"<h3>{message}</h3>")
     f.write("</body>")
     f.write("</html>")
